@@ -1,4 +1,11 @@
-<app-header></app-header>
+<app-header title="Login"></app-header>
 <ion-content>
+
+  <form [formGroup]="form">
+    <app-custom-input autocomplete="email" icon="mail-outline" [control]="form.controls.email" type="email" label="Correo"></app-custom-input>
+    <app-custom-input icon="lock-closed-outline" type="password" label="Contraseña" [control]="form.controls.clave"></app-custom-input>
+
+  {{form.value | json}}
+  </form>
 
 </ion-content>

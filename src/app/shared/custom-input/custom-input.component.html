@@ -1,3 +1,4 @@
-<p>
-  custom-input works!
-</p>
+<ion-item class="custom-input" lines="none">
+  <ion-icon color="primary" *ngIf="icon" slot="start" [name]="icon"></ion-icon>
+  <ion-input [type]="type" [autocomplete]="autocomplete" [label]="label" labelPlacement="floating" [formControl]="control"></ion-input> <!-- estas varibles son las que estan en custom.ts y asi poder conectar el formulario con los inputs -->
+</ion-item>
