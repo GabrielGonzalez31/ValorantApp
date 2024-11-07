@@ -1,0 +1,7 @@
+{
+  "name": "ValorantApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
