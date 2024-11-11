@@ -1,7 +1,7 @@
 <app-header title="Login"></app-header>
-<ion-content>
+<ion-content class="contenedor">
 
-  <div class="d-flex-center">
+  <div class="conte_form d-flex-center">
     <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
 
       <app-logo></app-logo>
@@ -21,13 +21,13 @@
         <div *ngIf="form.controls.clave.errors?.['required']">La contraseña es requerido</div>
       </div>
 
-      <p routerLink="restablecer-clave" class="ion-text-end">¿Olvidastes tu contraseña?</p>
+      <p routerLink="restablecer-clave" class="texto_olvidastes_contra ion-text-end">¿Olvidastes tu contraseña?</p>
 
       <ion-button expand="block" class="submit" type="submit" mode="ios" [disabled]="form.invalid">Ingresar
         <ion-icon slot="end" name="log-in-outline"></ion-icon>
       </ion-button>
 
-      <ion-button class="ion-margin-top" routerLink="registrar" expand="block" mode="ios" fill="outline">Registrarse
+      <ion-button class="registrarse ion-margin-top" routerLink="registrar" expand="block" mode="ios" fill="clear">Registrarse
         <ion-icon slot="end" name="person-add-outline"></ion-icon>
       </ion-button>
     </form>

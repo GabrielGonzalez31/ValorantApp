@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Usuario } from 'src/app/models/bd.models';
+import { FirebaseService } from 'src/app/servicios/firebase.service';
+import { UtilsService } from 'src/app/servicios/utils.service';
 
 @Component({
   selector: 'app-auth',
@@ -13,13 +16,34 @@ export class AuthPage implements OnInit {
     clave: new FormControl('',[Validators.required]),
   })
 
-  constructor() { }
-
+  firebaseAuth = inject(FirebaseService)
+  utils = inject(UtilsService);
   ngOnInit() {
   }
 
-  submit(){
-    console.log(this.form.value);
+  async submit(){
+    if ( this.form.valid) {
+
+      const isLoading = await this.utils.cargando();
+      await isLoading.present();
+
+      this.firebaseAuth.iniciarSesion(this.form.value as Usuario).then(res => {
+        console.log(res);
+
+      }).catch(error => {
+        console.log(error);
+        this.utils.presentToast({
+          message: 'Correo o Contraseña incorrectas. Vuelva a intentarlo',
+          duration: 2000,
+          color: 'danger',
+          position: 'middle',
+          icon: 'alert-circle-outline',
+        });
+
+      }).finally(() => {
+        isLoading.dismiss();
+      })
+    }
   }
 
 }
