@@ -28,10 +28,50 @@ export class AuthPage implements OnInit {
       await isLoading.present();
 
       this.firebaseAuth.iniciarSesion(this.form.value as Usuario).then(res => {
-        console.log(res);
+
+        this.getUserInfo(res.user.uid);
 
       }).catch(error => {
         console.log(error);
+        this.utils.presentToast({
+          message: 'Correo o Contraseña incorrectas. Vuelva a intentarlo',
+          duration: 2000,
+          color: 'danger',
+          position: 'middle',
+          icon: 'alert-circle-outline',
+        });
+
+      }).finally(() => {
+        isLoading.dismiss();
+      })
+    }
+  }
+
+  async getUserInfo(uid: string){
+    if ( this.form.valid) {
+
+      const isLoading = await this.utils.cargando();
+      await isLoading.present();
+
+      let path = `users/${uid}`;
+
+      this.firebaseAuth.getDocument(path).then((user: Usuario) => { //la contraseña se obtiene de esta funcion
+
+        this.utils.guardadoLocal('user', user);
+        this.utils.routerLink('/home');
+        this.form.reset();
+
+        this.utils.presentToast({
+          message: `Bienvenido ${user.nombre}`,
+          duration: 1500,
+          color: 'danger',
+          position: 'middle',
+          icon: 'alert-circle-outline',
+        });
+
+      }).catch(error => {
+        console.log(error);
+
         this.utils.presentToast({
           message: 'Correo o Contraseña incorrectas. Vuelva a intentarlo',
           duration: 2000,
