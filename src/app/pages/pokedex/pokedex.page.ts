@@ -1,12 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-pokedex',
   templateUrl: './pokedex.page.html',
   styleUrls: ['./pokedex.page.scss'],
 })
+
+
+
 export class PokedexPage implements OnInit {
-  constructor() {}
+  constructor(private navCtrl: NavController) {}
+
+
+  goBack() {
+    this.navCtrl.navigateBack('/inicio');
+  }
+
 
   async ngOnInit() {
     this.getPokemon();
@@ -71,7 +81,7 @@ export class PokedexPage implements OnInit {
     image.alt = pokemon.name;
 
     card.className = 'card';
-    card.style.width = '18rem';
+    card.style.width = '10rem';
     card.appendChild(image);
     card.appendChild(cardBody);
 
